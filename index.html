@@ -37,7 +37,7 @@
     </form>
 
     <div class="auth-switch">
-      Don't have an account? <a onclick="showScreen('signup')">Create account</a>
+      Don't have an account? <a href="#" onclick="showScreen('signup'); return false;">Create account</a>
     </div>
   </div>
 </div>
@@ -92,7 +92,7 @@
     </form>
 
     <div class="auth-switch">
-      Already have an account? <a onclick="showScreen('login')">Sign in</a>
+      Already have an account? <a href="#" onclick="showScreen('login'); return false;">Sign in</a>
     </div>
   </div>
 </div>
@@ -100,7 +100,7 @@
 <!-- ═══════════════════════════════════════════════════════════
      DASHBOARD
 ═══════════════════════════════════════════════════════════ -->
-<div id="dashboard" style="display:none; flex-direction:column; min-height:100vh;">
+<div id="dashboard" class="dashboard-wrap">
 
   <!-- TOP BAR -->
   <header class="topbar">
@@ -131,13 +131,13 @@
 
   <!-- TABS NAV -->
   <nav class="tabs-bar">
-    <button class="tab-btn active" data-tab="overview"       onclick="switchTab('overview')">       📊 Overview</button>
-    <button class="tab-btn"        data-tab="registrations"  onclick="switchTab('registrations')">  👤 New Registrations <span class="tab-badge">8</span></button>
-    <button class="tab-btn"        data-tab="docreview"      onclick="switchTab('docreview')">      📄 Document Review <span class="tab-badge warn">5</span></button>
-    <button class="tab-btn"        data-tab="rejected"       onclick="switchTab('rejected')">       ❌ Rejected Follow-up <span class="tab-badge">5</span></button>
-    <button class="tab-btn"        data-tab="withdrawals"    onclick="switchTab('withdrawals')">    💸 Withdrawal Review <span class="tab-badge">6</span></button>
-    <button class="tab-btn"        data-tab="team"           onclick="switchTab('team')">           👥 Team Performance</button>
-    <button class="tab-btn"        data-tab="chat"           onclick="switchTab('chat')">           💬 Live Chat <span class="tab-badge info">3</span></button>
+    <button class="tab-btn active" data-tab="overview"      onclick="switchTab('overview')">📊 Overview</button>
+    <button class="tab-btn"        data-tab="registrations" onclick="switchTab('registrations')">👤 New Registrations <span class="tab-badge">8</span></button>
+    <button class="tab-btn"        data-tab="docreview"     onclick="switchTab('docreview')">📄 Document Review <span class="tab-badge warn">5</span></button>
+    <button class="tab-btn"        data-tab="rejected"      onclick="switchTab('rejected')">❌ Rejected Follow-up <span class="tab-badge">5</span></button>
+    <button class="tab-btn"        data-tab="withdrawals"   onclick="switchTab('withdrawals')">💸 Withdrawal Review <span class="tab-badge">6</span></button>
+    <button class="tab-btn"        data-tab="team"          onclick="switchTab('team')">👥 Team Performance</button>
+    <button class="tab-btn"        data-tab="chat"          onclick="switchTab('chat')">💬 Live Chat <span class="tab-badge info">3</span></button>
   </nav>
 
   <!-- MAIN -->
@@ -197,31 +197,31 @@
                 <tr>
                   <td>KYC-1048</td>
                   <td><div class="name-cell"><div class="name-avatar" style="background:#283593">GP</div>George Pappas</div></td>
-                  <td>New Registration</td><td>Tom Davis</td><td>11:22</td>
+                  <td>New Registration</td><td>Sevil</td><td>11:22</td>
                   <td><span class="badge badge-yellow">Pending</span></td>
                 </tr>
                 <tr>
                   <td>WD-7725</td>
                   <td><div class="name-cell"><div class="name-avatar" style="background:#558b2f">PS</div>Priya Sharma</div></td>
-                  <td>Withdrawal Request</td><td>Sarah Miller</td><td>08:00</td>
+                  <td>Withdrawal Request</td><td>Mahoo</td><td>08:00</td>
                   <td><span class="badge badge-yellow">Pending</span></td>
                 </tr>
                 <tr>
                   <td>KYC-1047</td>
                   <td><div class="name-cell"><div class="name-avatar" style="background:#c62828">FA</div>Fatima Al-Said</div></td>
-                  <td>Document Flagged</td><td>Emma Wilson</td><td>07:45</td>
+                  <td>Document Flagged</td><td>Pouya</td><td>07:45</td>
                   <td><span class="badge badge-blue">In Review</span></td>
                 </tr>
                 <tr>
                   <td>KYC-1046</td>
                   <td><div class="name-cell"><div class="name-avatar" style="background:#00838f">AT</div>Aiko Tanaka</div></td>
-                  <td>KYC Approved</td><td>Emma Wilson</td><td>Apr 04</td>
+                  <td>KYC Approved</td><td>Pouya</td><td>Apr 04</td>
                   <td><span class="badge badge-green">Approved</span></td>
                 </tr>
                 <tr>
                   <td>KYC-0994</td>
                   <td><div class="name-cell"><div class="name-avatar" style="background:#7b1fa2">NK</div>Nour Khalil</div></td>
-                  <td>Document Resubmitted</td><td>Sarah Miller</td><td>Apr 02</td>
+                  <td>Document Resubmitted</td><td>Mahoo</td><td>Apr 02</td>
                   <td><span class="badge badge-blue">Resubmitted</span></td>
                 </tr>
               </tbody>
@@ -288,35 +288,35 @@
                 <td>KYC-1043</td>
                 <td><div class="name-cell"><div class="name-avatar" style="background:#1976d2">DV</div>Dmitri Volkov</div></td>
                 <td>Passport + Utility Bill</td><td>Apr 05</td><td class="text-danger">48h</td>
-                <td><span class="badge badge-red">High</span></td><td>Emma Wilson</td>
+                <td><span class="badge badge-red">High</span></td><td>Pouya</td>
                 <td><button class="action-btn action-review" onclick="viewReg('KYC-1043')">Review</button></td>
               </tr>
               <tr>
                 <td>KYC-1047</td>
                 <td><div class="name-cell"><div class="name-avatar" style="background:#c62828">FA</div>Fatima Al-Said</div></td>
                 <td>National ID + Bank Statement</td><td>Apr 03</td><td class="text-warning">26h</td>
-                <td><span class="badge badge-red">High</span></td><td>Sarah Miller</td>
+                <td><span class="badge badge-red">High</span></td><td>Mahoo</td>
                 <td><button class="action-btn action-review" onclick="viewReg('KYC-1047')">Review</button></td>
               </tr>
               <tr>
                 <td>KYC-1041</td>
                 <td><div class="name-cell"><div class="name-avatar" style="background:#558b2f">MW</div>Marcus Webb</div></td>
                 <td>Passport</td><td>Apr 06</td><td>18h</td>
-                <td><span class="badge badge-green">Low</span></td><td>Sarah Miller</td>
+                <td><span class="badge badge-green">Low</span></td><td>Mahoo</td>
                 <td><button class="action-btn action-review" onclick="viewReg('KYC-1041')">Review</button></td>
               </tr>
               <tr>
                 <td>KYC-1042</td>
                 <td><div class="name-cell"><div class="name-avatar" style="background:#7b1fa2">LH</div>Layla Hassan</div></td>
                 <td>National ID</td><td>Apr 06</td><td>16h</td>
-                <td><span class="badge badge-yellow">Medium</span></td><td>Tom Davis</td>
+                <td><span class="badge badge-yellow">Medium</span></td><td>Sevil</td>
                 <td><button class="action-btn action-review" onclick="viewReg('KYC-1042')">Review</button></td>
               </tr>
               <tr>
                 <td>KYC-1044</td>
                 <td><div class="name-cell"><div class="name-avatar" style="background:#00838f">PS</div>Priya Sharma</div></td>
                 <td>Aadhaar Card</td><td>Apr 05</td><td>22h</td>
-                <td><span class="badge badge-green">Low</span></td><td>Sarah Miller</td>
+                <td><span class="badge badge-green">Low</span></td><td>Mahoo</td>
                 <td><button class="action-btn action-review" onclick="viewReg('KYC-1044')">Review</button></td>
               </tr>
             </tbody>
@@ -385,7 +385,7 @@
     <!-- ── TEAM PERFORMANCE ───────────────────────────── -->
     <section id="panel-team" class="tab-panel">
       <div class="stats-strip">
-        <div class="stat-card c-info"><div class="stat-label">Team Size</div><div class="stat-val">4</div><div class="stat-sub">1 Manager · 3 Agents</div></div>
+        <div class="stat-card c-info"><div class="stat-label">Team Size</div><div class="stat-val">4</div><div class="stat-sub">1 Manager · 3 Analysts</div></div>
         <div class="stat-card c-green"><div class="stat-label">All Online</div><div class="stat-val">4/4</div><div class="stat-sub">Active today</div></div>
         <div class="stat-card c-blue"><div class="stat-label">Cases Reviewed</div><div class="stat-val">400</div><div class="stat-sub">Combined total</div></div>
         <div class="stat-card c-green"><div class="stat-label">Avg Efficiency</div><div class="stat-val">87%</div><div class="stat-sub">Team average</div></div>
@@ -436,26 +436,26 @@
               <span class="badge badge-green">Online</span>
             </div>
             <div class="team-card">
-              <div class="team-avatar" style="background:#7b1fa2">SM</div>
+              <div class="team-avatar" style="background:#7b1fa2">MA</div>
               <div class="team-info">
-                <div class="team-name">Sarah Miller</div>
+                <div class="team-name">Mahoo</div>
                 <div class="team-role">KYC Analyst</div>
               </div>
               <span class="badge badge-green">Online</span>
             </div>
             <div class="team-card">
-              <div class="team-avatar" style="background:#00838f">TD</div>
+              <div class="team-avatar" style="background:#00838f">SE</div>
               <div class="team-info">
-                <div class="team-name">Tom Davis</div>
+                <div class="team-name">Sevil</div>
                 <div class="team-role">KYC Analyst</div>
               </div>
               <span class="badge badge-green">Online</span>
             </div>
             <div class="team-card">
-              <div class="team-avatar" style="background:#e65100">EW</div>
+              <div class="team-avatar" style="background:#e65100">PO</div>
               <div class="team-info">
-                <div class="team-name">Emma Wilson</div>
-                <div class="team-role">Document Reviewer</div>
+                <div class="team-name">Pouya</div>
+                <div class="team-role">KYC Analyst</div>
               </div>
               <span class="badge badge-green">Online</span>
             </div>
