@@ -1,11 +1,8 @@
-function showScreen(screen) {
+function showOnly(screenId) {
   document.getElementById('login-screen').classList.add('hidden');
   document.getElementById('signup-screen').classList.add('hidden');
   document.getElementById('dashboard').classList.add('hidden');
-
-  if (screen === 'login') document.getElementById('login-screen').classList.remove('hidden');
-  if (screen === 'signup') document.getElementById('signup-screen').classList.remove('hidden');
-  if (screen === 'dashboard') document.getElementById('dashboard').classList.remove('hidden');
+  document.getElementById(screenId).classList.remove('hidden');
 }
 
 function switchTab(tabName) {
@@ -19,32 +16,32 @@ function switchTab(tabName) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  showScreen('login');
+  showOnly('login-screen');
 
   document.getElementById('login-form').addEventListener('submit', function (e) {
     e.preventDefault();
-    showScreen('dashboard');
+    showOnly('dashboard');
     switchTab('overview');
   });
 
   document.getElementById('signup-form').addEventListener('submit', function (e) {
     e.preventDefault();
-    showScreen('dashboard');
+    showOnly('dashboard');
     switchTab('overview');
   });
 
-  document.getElementById('show-signup').addEventListener('click', function (e) {
+  document.getElementById('go-signup').addEventListener('click', function (e) {
     e.preventDefault();
-    showScreen('signup');
+    showOnly('signup-screen');
   });
 
-  document.getElementById('show-login').addEventListener('click', function (e) {
+  document.getElementById('go-login').addEventListener('click', function (e) {
     e.preventDefault();
-    showScreen('login');
+    showOnly('login-screen');
   });
 
   document.getElementById('logout-btn').addEventListener('click', function () {
-    showScreen('login');
+    showOnly('login-screen');
   });
 
   document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -60,17 +57,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!text) return;
 
     const msg = document.createElement('div');
-    msg.className = 'chat-msg';
-    msg.textContent = 'Ali Javid: ' + text;
+    msg.textContent = text;
+    msg.className = 'muted';
     box.appendChild(msg);
     input.value = '';
-    box.scrollTop = box.scrollHeight;
-  });
-
-  document.getElementById('chat-input').addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      document.getElementById('send-btn').click();
-    }
   });
 });

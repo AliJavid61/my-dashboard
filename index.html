@@ -7,50 +7,34 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="login-screen" class="auth-screen">
+  <div id="login-screen" class="screen">
     <div class="auth-card">
-      <div class="brand-row">
-        <div class="brand-mark">🛡️</div>
-        <div>
-          <h1>ForexPro KYC</h1>
-          <p>Compliance Management Platform</p>
-        </div>
-      </div>
+      <h1>ForexPro KYC</h1>
+      <p class="muted">Compliance Management Platform</p>
 
-      <h2>Welcome back</h2>
-      <p class="muted">Sign in to access your team dashboard</p>
-
-      <form id="login-form">
+      <form id="login-form" class="form">
         <label>Email Address</label>
-        <input id="login-email" type="email" value="admin@forexpro.com" />
+        <input type="email" value="admin@forexpro.com" />
 
         <label>Password</label>
-        <input id="login-pass" type="password" value="admin123" />
+        <input type="password" value="admin123" />
 
         <button type="submit" class="primary-btn">Sign In</button>
       </form>
 
-      <div class="auth-switch">
+      <p class="switch-text">
         Don't have an account?
-        <a href="#" id="show-signup">Create account</a>
-      </div>
+        <a href="#" id="go-signup">Create account</a>
+      </p>
     </div>
   </div>
 
-  <div id="signup-screen" class="auth-screen hidden">
+  <div id="signup-screen" class="screen hidden">
     <div class="auth-card">
-      <div class="brand-row">
-        <div class="brand-mark">🛡️</div>
-        <div>
-          <h1>ForexPro KYC</h1>
-          <p>Create your team access</p>
-        </div>
-      </div>
+      <h1>Create Account</h1>
+      <p class="muted">Demo signup page</p>
 
-      <h2>Register</h2>
-      <p class="muted">Demo signup for the homework project</p>
-
-      <form id="signup-form">
+      <form id="signup-form" class="form">
         <label>Full Name</label>
         <input type="text" placeholder="Your name" />
 
@@ -63,245 +47,103 @@
         <button type="submit" class="primary-btn">Register</button>
       </form>
 
-      <div class="auth-switch">
+      <p class="switch-text">
         Already have an account?
-        <a href="#" id="show-login">Back to login</a>
-      </div>
+        <a href="#" id="go-login">Back to login</a>
+      </p>
     </div>
   </div>
 
   <div id="dashboard" class="dashboard hidden">
     <aside class="sidebar">
-      <div class="sidebar-brand">
-        <div class="brand-mark small">🛡️</div>
-        <div>
-          <strong>ForexPro KYC</strong>
-          <div class="sidebar-sub">Manager Console</div>
-        </div>
-      </div>
+      <div class="sidebar-title">ForexPro KYC</div>
 
-      <nav class="sidebar-nav">
-        <button class="tab-btn active" data-tab="overview">Overview</button>
-        <button class="tab-btn" data-tab="registrations">New Registrations</button>
-        <button class="tab-btn" data-tab="docreview">Document Review</button>
-        <button class="tab-btn" data-tab="rejected">Rejected Follow-up</button>
-        <button class="tab-btn" data-tab="withdrawals">Withdrawal Review</button>
-        <button class="tab-btn" data-tab="team">Team Performance</button>
-        <button class="tab-btn" data-tab="chat">Live Chat</button>
-      </nav>
+      <button class="tab-btn active" data-tab="overview">Overview</button>
+      <button class="tab-btn" data-tab="registrations">New Registrations</button>
+      <button class="tab-btn" data-tab="documents">Document Review</button>
+      <button class="tab-btn" data-tab="rejected">Rejected Follow-up</button>
+      <button class="tab-btn" data-tab="withdrawals">Withdrawal Review</button>
+      <button class="tab-btn" data-tab="team">Team Performance</button>
+      <button class="tab-btn" data-tab="chat">Live Chat</button>
 
       <button id="logout-btn" class="logout-btn">Logout</button>
     </aside>
 
-    <main class="main-area">
+    <main class="main">
       <header class="topbar">
         <div>
           <h2>KYC Team Dashboard</h2>
-          <p class="muted">Ali Javid • KYC Team Manager</p>
-        </div>
-        <div class="topbar-user">
-          <div class="avatar">AJ</div>
-          <div>
-            <strong>Ali Javid</strong>
-            <div class="muted">4-member team</div>
-          </div>
+          <p class="muted">Ali Javid — KYC Team Manager</p>
         </div>
       </header>
 
       <section id="panel-overview" class="tab-panel active">
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-title">Pending KYC</div>
-            <div class="stat-value">24</div>
-            <div class="stat-sub">Awaiting review</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-title">Approved Today</div>
-            <div class="stat-value">38</div>
-            <div class="stat-sub">+14% vs yesterday</div>
-          </div>
-          <div class="stat-card danger">
-            <div class="stat-title">Withdrawal Flags</div>
-            <div class="stat-value">2</div>
-            <div class="stat-sub">High-risk pending</div>
-          </div>
-          <div class="stat-card success">
-            <div class="stat-title">Team Active</div>
-            <div class="stat-value">4/4</div>
-            <div class="stat-sub">All members online</div>
-          </div>
-        </div>
-
-        <div class="content-grid two">
-          <div class="panel-card">
-            <div class="panel-title">Recent Activity</div>
-            <table>
-              <thead>
-                <tr>
-                  <th>Case ID</th>
-                  <th>Client</th>
-                  <th>Action</th>
-                  <th>Agent</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td>KYC-1048</td><td>George Pappas</td><td>New Registration</td><td>Sevil</td><td>Pending</td></tr>
-                <tr><td>WD-7725</td><td>Priya Sharma</td><td>Withdrawal Request</td><td>Mahoo</td><td>Pending</td></tr>
-                <tr><td>KYC-1047</td><td>Fatima Al-Said</td><td>Document Flagged</td><td>Pouya</td><td>In Review</td></tr>
-                <tr><td>KYC-1046</td><td>Aiko Tanaka</td><td>KYC Approved</td><td>Pouya</td><td>Approved</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="panel-card">
-            <div class="panel-title">Priority Focus</div>
-            <ul class="list">
-              <li>2 flagged withdrawals require manual review</li>
-              <li>5 document cases are near SLA breach</li>
-              <li>1 rejected document needs client follow-up today</li>
-              <li>WhatsApp + email follow-up pending for 3 clients</li>
-            </ul>
-          </div>
+        <div class="card">
+          <h3>Overview</h3>
+          <p class="muted">KYC management dashboard for internal team workflow.</p>
         </div>
       </section>
 
       <section id="panel-registrations" class="tab-panel">
-        <div class="panel-card">
-          <div class="panel-title">New KYC Registrations</div>
-          <table>
-            <thead>
-              <tr>
-                <th>Case ID</th>
-                <th>Client</th>
-                <th>Country</th>
-                <th>Document</th>
-                <th>Risk</th>
-                <th>Assigned To</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>KYC-1051</td><td>Amir Hosseini</td><td>UAE</td><td>Passport</td><td>Low</td><td>Sevil</td></tr>
-              <tr><td>KYC-1052</td><td>Leila Kazemi</td><td>Turkey</td><td>National ID</td><td>Medium</td><td>Mahoo</td></tr>
-              <tr><td>KYC-1053</td><td>Omar Khaled</td><td>Egypt</td><td>Passport</td><td>High</td><td>Pouya</td></tr>
-            </tbody>
-          </table>
+        <div class="card">
+          <h3>New Registrations</h3>
+          <p class="muted">New client registrations are reviewed here.</p>
         </div>
       </section>
 
-      <section id="panel-docreview" class="tab-panel">
-        <div class="panel-card">
-          <div class="panel-title">Document Review Queue</div>
-          <table>
-            <thead>
-              <tr>
-                <th>Case ID</th>
-                <th>Client</th>
-                <th>Document Type</th>
-                <th>Submitted Age</th>
-                <th>Risk</th>
-                <th>Assigned To</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>KYC-1043</td><td>Dmitri Volkov</td><td>Passport + Utility Bill</td><td>48h</td><td>High</td><td>Pouya</td></tr>
-              <tr><td>KYC-1041</td><td>Marcus Webb</td><td>Passport</td><td>18h</td><td>Low</td><td>Mahoo</td></tr>
-              <tr><td>KYC-1042</td><td>Layla Hassan</td><td>National ID</td><td>16h</td><td>Medium</td><td>Sevil</td></tr>
-            </tbody>
-          </table>
+      <section id="panel-documents" class="tab-panel">
+        <div class="card">
+          <h3>Document Review</h3>
+          <p class="muted">Uploaded documents are checked and approved or rejected here.</p>
         </div>
       </section>
 
       <section id="panel-rejected" class="tab-panel">
-        <div class="panel-card">
-          <div class="panel-title">Rejected Documents — Follow-up</div>
-          <table>
-            <thead>
-              <tr>
-                <th>Case ID</th>
-                <th>Client</th>
-                <th>Reason</th>
-                <th>Attempts</th>
-                <th>Assigned To</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>KYC-0984</td><td>Nour Khalil</td><td>Blurred proof of address</td><td>2</td><td>Mahoo</td></tr>
-              <tr><td>KYC-0989</td><td>Hassan Tariq</td><td>Expired ID</td><td>1</td><td>Sevil</td></tr>
-            </tbody>
-          </table>
+        <div class="card">
+          <h3>Rejected Follow-up</h3>
+          <p class="muted">Rejected submissions are followed up by the team.</p>
         </div>
       </section>
 
       <section id="panel-withdrawals" class="tab-panel">
-        <div class="panel-card">
-          <div class="panel-title">Withdrawal Review</div>
-          <table>
-            <thead>
-              <tr>
-                <th>WD ID</th>
-                <th>Client</th>
-                <th>Amount</th>
-                <th>Method</th>
-                <th>Risk</th>
-                <th>KYC Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>WD-7725</td><td>Priya Sharma</td><td>$3,400</td><td>Crypto</td><td>Medium</td><td>Verified</td></tr>
-              <tr><td>WD-7728</td><td>Karim Nader</td><td>$8,900</td><td>USDT</td><td>High</td><td>Manual review</td></tr>
-            </tbody>
-          </table>
+        <div class="card">
+          <h3>Withdrawal Review</h3>
+          <p class="muted">Withdrawal requests are reviewed here before approval.</p>
         </div>
       </section>
 
       <section id="panel-team" class="tab-panel">
-        <div class="panel-card">
-          <div class="panel-title">Team Performance — April 2026</div>
-          <table>
-            <thead>
-              <tr>
-                <th>Agent</th>
-                <th>Role</th>
-                <th>Cases Reviewed</th>
-                <th>Avg Review Time</th>
-                <th>First Response</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>Ali Javid</td><td>KYC Team Manager</td><td>112</td><td>7 min</td><td>2 min</td><td>Active</td></tr>
-              <tr><td>Mahoo</td><td>KYC Analyst</td><td>98</td><td>9 min</td><td>3 min</td><td>Active</td></tr>
-              <tr><td>Sevil</td><td>KYC Analyst</td><td>84</td><td>10 min</td><td>4 min</td><td>Active</td></tr>
-              <tr><td>Pouya</td><td>KYC Analyst</td><td>76</td><td>11 min</td><td>4 min</td><td>Active</td></tr>
-            </tbody>
-          </table>
+        <div class="card">
+          <h3>Team Performance</h3>
+          <div class="team-list">
+            <div class="team-member">
+              <strong>Ali Javid</strong>
+              <span class="muted">KYC Team Manager</span>
+            </div>
+            <div class="team-member">
+              <strong>Mahoo</strong>
+              <span class="muted">KYC Analyst</span>
+            </div>
+            <div class="team-member">
+              <strong>Sevil</strong>
+              <span class="muted">KYC Analyst</span>
+            </div>
+            <div class="team-member">
+              <strong>Pouya</strong>
+              <span class="muted">KYC Analyst</span>
+            </div>
+          </div>
         </div>
       </section>
 
       <section id="panel-chat" class="tab-panel">
-        <div class="content-grid two">
-          <div class="panel-card">
-            <div class="panel-title">Live Chat</div>
-            <div class="chat-box" id="chat-box">
-              <div class="chat-msg">Sevil: New registration queue updated.</div>
-              <div class="chat-msg">Mahoo: One proof of address rejected, follow-up sent.</div>
-              <div class="chat-msg">Pouya: Reviewing high-risk withdrawal now.</div>
-            </div>
-            <div class="chat-input-row">
-              <input id="chat-input" type="text" placeholder="Message #kyc-team..." />
-              <button id="send-btn" class="primary-btn small">Send</button>
-            </div>
-          </div>
-
-          <div class="panel-card">
-            <div class="panel-title">Online Members</div>
-            <ul class="list">
-              <li>Ali Javid — KYC Team Manager</li>
-              <li>Mahoo — KYC Analyst</li>
-              <li>Sevil — KYC Analyst</li>
-              <li>Pouya — KYC Analyst</li>
-            </ul>
+        <div class="card">
+          <h3>Live Chat</h3>
+          <p class="muted">Internal KYC team communication space.</p>
+          <div id="chat-box" class="chat-box"></div>
+          <div class="chat-row">
+            <input id="chat-input" type="text" placeholder="Message team..." />
+            <button id="send-btn" class="primary-btn small-btn">Send</button>
           </div>
         </div>
       </section>
