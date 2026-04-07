@@ -3,153 +3,1410 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ForexPro KYC Dashboard</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Opofinance — KYC Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sidebar-bg:   #0f1729;
+      --main-bg:      #1a2235;
+      --card-bg:      #242f45;
+      --card-hover:   #2a3753;
+      --border:       rgba(255,255,255,0.06);
+      --blue:         #4f7cff;
+      --blue-dim:     rgba(79,124,255,0.13);
+      --blue-glow:    rgba(79,124,255,0.35);
+      --purple:       #8b5cf6;
+      --text:         #e2e8f0;
+      --muted:        #7b90b4;
+      --success:      #10b981;
+      --success-bg:   rgba(16,185,129,0.12);
+      --warning:      #f59e0b;
+      --warning-bg:   rgba(245,158,11,0.12);
+      --danger:       #ef4444;
+      --danger-bg:    rgba(239,68,68,0.12);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--main-bg);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .hidden { display: none !important; }
+
+    /* ── scrollbar ── */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 99px; }
+
+    /* ════════════════════════════════════════
+       LOGIN PAGE
+    ════════════════════════════════════════ */
+    #login-page {
+      min-height: 100vh;
+      background: var(--main-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #login-page::before {
+      content: '';
+      position: absolute;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(79,124,255,0.07) 0%, transparent 65%);
+      top: -200px; left: -150px;
+      pointer-events: none;
+    }
+
+    #login-page::after {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(139,92,246,0.07) 0%, transparent 65%);
+      bottom: -100px; right: -100px;
+      pointer-events: none;
+    }
+
+    .login-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 44px 40px 40px;
+      width: 420px;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+    }
+
+    .login-brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin-bottom: 6px;
+    }
+
+    .login-brand-icon {
+      width: 42px; height: 42px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      border-radius: 11px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 14px var(--blue-glow);
+    }
+
+    .login-brand-name {
+      font-size: 21px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .login-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 34px;
+      line-height: 1.5;
+    }
+
+    .form-group { margin-bottom: 18px; }
+
+    .form-group label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 8px;
+      letter-spacing: 0.2px;
+    }
+
+    .form-group input {
+      width: 100%;
+      background: var(--main-bg);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 9px;
+      padding: 12px 14px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-group input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px var(--blue-dim);
+    }
+
+    .form-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+    }
+
+    .remember-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12.5px;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .remember-label input[type="checkbox"] {
+      width: 14px; height: 14px;
+      accent-color: var(--blue);
+    }
+
+    .forgot-link {
+      font-size: 12.5px;
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .btn-primary {
+      width: 100%;
+      background: linear-gradient(135deg, #4f7cff, #3a6bef);
+      border: none;
+      border-radius: 9px;
+      padding: 13px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(79,124,255,0.4);
+      letter-spacing: 0.1px;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.92;
+      box-shadow: 0 6px 20px rgba(79,124,255,0.55);
+    }
+
+    .btn-primary:active { transform: scale(0.985); }
+
+    .login-hint {
+      margin-top: 22px;
+      padding: 12px 14px;
+      background: var(--blue-dim);
+      border: 1px solid rgba(79,124,255,0.2);
+      border-radius: 9px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .login-hint span { color: var(--blue); font-weight: 500; }
+
+    /* ════════════════════════════════════════
+       DASHBOARD LAYOUT
+    ════════════════════════════════════════ */
+    #dashboard-page { display: flex; min-height: 100vh; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: 244px;
+      min-height: 100vh;
+      background: var(--sidebar-bg);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0; left: 0;
+      z-index: 200;
+      border-right: 1px solid var(--border);
+    }
+
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 22px 18px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 3px 10px rgba(79,124,255,0.35);
+    }
+
+    .logo-text { font-size: 15.5px; font-weight: 800; color: var(--text); letter-spacing: -0.3px; }
+    .logo-sub  { font-size: 9.5px; font-weight: 600; color: var(--muted); letter-spacing: 0.8px; text-transform: uppercase; margin-top: 1px; }
+
+    .sidebar-nav { padding: 14px 10px 6px; flex: 1; overflow-y: auto; }
+
+    .nav-section-label {
+      font-size: 9.5px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 10px 10px 5px;
+      opacity: 0.7;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 500;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      margin-bottom: 2px;
+      position: relative;
+    }
+
+    .nav-item svg { width: 17px; height: 17px; flex-shrink: 0; }
+
+    .nav-item:hover { background: rgba(255,255,255,0.05); color: var(--text); }
+
+    .nav-item.active {
+      background: var(--blue-dim);
+      color: var(--blue);
+      font-weight: 600;
+    }
+
+    .nav-badge {
+      margin-left: auto;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 99px;
+      line-height: 1.5;
+    }
+
+    .badge-nav-red    { background: var(--danger);  color: #fff; }
+    .badge-nav-orange { background: var(--warning); color: #fff; }
+
+    .sidebar-bottom {
+      padding: 12px 10px 16px;
+      border-top: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .user-tile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 10px;
+      border-radius: 9px;
+      margin-bottom: 4px;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .avatar {
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; color: #fff; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+    }
+
+    .avatar-32 { width: 32px; height: 32px; font-size: 11.5px; }
+    .avatar-38 { width: 38px; height: 38px; font-size: 13px; }
+
+    .user-tile-name { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.3; }
+    .user-tile-role { font-size: 11px; color: var(--muted); }
+
+    .logout-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 500;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .logout-btn svg { width: 16px; height: 16px; }
+    .logout-btn:hover { background: rgba(239,68,68,0.1); color: var(--danger); }
+
+    /* ── MAIN ── */
+    .main-content {
+      margin-left: 244px;
+      flex: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      background: var(--sidebar-bg);
+      border-bottom: 1px solid var(--border);
+      padding: 0 28px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky; top: 0;
+      z-index: 100;
+      flex-shrink: 0;
+    }
+
+    .topbar-left h1 { font-size: 17px; font-weight: 700; color: var(--text); letter-spacing: -0.2px; }
+    .topbar-left p  { font-size: 12px; color: var(--muted); margin-top: 1px; }
+
+    .topbar-right { display: flex; align-items: center; gap: 10px; }
+
+    .icon-btn {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      color: var(--muted);
+      transition: background 0.15s, color 0.15s;
+      position: relative;
+    }
+
+    .icon-btn svg { width: 17px; height: 17px; }
+    .icon-btn:hover { background: var(--card-hover); color: var(--text); }
+
+    .notif-dot {
+      position: absolute;
+      top: 8px; right: 8px;
+      width: 7px; height: 7px;
+      background: var(--danger);
+      border-radius: 50%;
+      border: 1.5px solid var(--sidebar-bg);
+    }
+
+    /* ── PAGE ── */
+    .page-content { padding: 14px 22px 20px; }
+
+    /* ── METRIC GRID ── */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .metric-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 14px 16px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .metric-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.28);
+    }
+
+    .metric-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .metric-label {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      line-height: 1.4;
+    }
+
+    .metric-icon-wrap {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .metric-icon-wrap svg { width: 18px; height: 18px; }
+    .mi-blue   { background: var(--blue-dim);        color: var(--blue); }
+    .mi-green  { background: var(--success-bg);      color: var(--success); }
+    .mi-orange { background: var(--warning-bg);      color: var(--warning); }
+    .mi-red    { background: var(--danger-bg);       color: var(--danger); }
+
+    .metric-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 6px;
+      letter-spacing: -1px;
+    }
+
+    .metric-trend {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .metric-trend svg { width: 13px; height: 13px; }
+    .t-green  { color: var(--success); }
+    .t-red    { color: var(--danger); }
+    .t-muted  { color: var(--muted); }
+    .trend-vs { color: var(--muted); font-weight: 400; margin-left: 2px; }
+
+    /* ── 2-COLUMN GRID ── */
+    .grid-2-col {
+      display: grid;
+      grid-template-columns: 1fr 310px;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      overflow: hidden;
+    }
+
+    .card-head {
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-title    { font-size: 14px; font-weight: 700; color: var(--text); }
+    .card-subtitle { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    .chip {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 99px;
+    }
+
+    .chip-blue   { background: var(--blue-dim);   color: var(--blue); }
+    .chip-orange { background: var(--warning-bg); color: var(--warning); }
+    .chip-red    { background: var(--danger-bg);  color: var(--danger); }
+    .chip-green  { background: var(--success-bg); color: var(--success); }
+
+    /* ── TABLE ── */
+    .table-scroll { overflow-x: auto; }
+
+    table { width: 100%; border-collapse: collapse; }
+
+    thead th {
+      padding: 8px 14px;
+      text-align: left;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      background: rgba(0,0,0,0.12);
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-top: 1px solid var(--border);
+      transition: background 0.12s;
+    }
+
+    tbody tr:hover { background: rgba(255,255,255,0.025); }
+
+    tbody td {
+      padding: 9px 14px;
+      font-size: 13px;
+      color: var(--text);
+      vertical-align: middle;
+    }
+
+    .client-cell { display: flex; align-items: center; gap: 10px; }
+
+    .client-ava {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10.5px; font-weight: 700; color: #fff;
+      flex-shrink: 0;
+    }
+
+    .client-name { font-weight: 600; font-size: 13px; line-height: 1.3; }
+    .client-id   { font-size: 11px; color: var(--muted); }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 9px;
+      border-radius: 99px;
+      white-space: nowrap;
+    }
+
+    .badge::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .badge-green  { background: var(--success-bg); color: var(--success); }
+    .badge-green::before  { background: var(--success); }
+    .badge-orange { background: var(--warning-bg); color: var(--warning); }
+    .badge-orange::before { background: var(--warning); }
+    .badge-red    { background: var(--danger-bg);  color: var(--danger); }
+    .badge-red::before    { background: var(--danger); }
+    .badge-blue   { background: var(--blue-dim);   color: var(--blue); }
+    .badge-blue::before   { background: var(--blue); }
+
+    .doc-chip {
+      font-size: 11.5px;
+      padding: 3px 9px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 5px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .assigned-wrap {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .assigned-dot {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px; font-weight: 700; color: #fff;
+      flex-shrink: 0;
+    }
+
+    .time-cell { font-size: 12px; color: var(--muted); white-space: nowrap; }
+
+    /* ── TEAM WORKLOAD ── */
+    .team-list { padding: 2px 0; }
+
+    .team-row {
+      padding: 10px 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .team-row:first-child { border-top: none; }
+
+    .team-row-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 7px;
+    }
+
+    .member-wrap { display: flex; align-items: center; gap: 10px; }
+    .member-name { font-size: 13px; font-weight: 600; color: var(--text); }
+    .member-role { font-size: 11px; color: var(--muted); }
+    .member-count { font-size: 18px; font-weight: 800; color: var(--text); letter-spacing: -0.5px; }
+    .member-count-label { font-size: 10.5px; color: var(--muted); text-align: right; }
+
+    .progress-track {
+      height: 5px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 99px;
+    }
+
+    /* ── WITHDRAWAL TABLE ── */
+    .amount-val { font-weight: 700; letter-spacing: -0.2px; }
+
+    .method-chip {
+      font-size: 11.5px;
+      padding: 3px 9px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 5px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .btn-group { display: flex; gap: 5px; align-items: center; }
+
+    .btn-act {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 11px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+      white-space: nowrap;
+    }
+
+    .btn-act:hover   { opacity: 0.8; }
+    .btn-act:active  { transform: scale(0.96); }
+
+    .btn-approve { background: var(--success-bg); color: var(--success); }
+    .btn-reject  { background: var(--danger-bg);  color: var(--danger);  }
+    .btn-review  { background: var(--blue-dim);   color: var(--blue);    }
+    .btn-hold    { background: var(--warning-bg); color: var(--warning); }
+
+    /* ── RISK FLAGS ── */
+    .risk-list { padding: 4px 0; }
+
+    .risk-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 11px 16px;
+      border-top: 1px solid var(--border);
+      transition: background 0.12s;
+    }
+
+    .risk-item:first-child { border-top: none; }
+    .risk-item:hover { background: rgba(255,255,255,0.02); }
+
+    .risk-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 4px;
+      position: relative;
+    }
+
+    .risk-dot::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+
+    .risk-dot.rd-red    { background: var(--danger);  box-shadow: 0 0 6px rgba(239,68,68,0.6); }
+    .risk-dot.rd-red::after  { border: 1px solid rgba(239,68,68,0.3); }
+    .risk-dot.rd-orange { background: var(--warning); box-shadow: 0 0 6px rgba(245,158,11,0.5); }
+    .risk-dot.rd-orange::after { border: 1px solid rgba(245,158,11,0.3); }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0; transform: scale(1.8); }
+    }
+
+    .risk-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    .risk-desc  { font-size: 12px; color: var(--muted); line-height: 1.55; }
+    .risk-meta  { font-size: 11px; color: var(--muted); margin-top: 5px; opacity: 0.75; }
+
+    .risk-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin-right: 6px;
+      letter-spacing: 0.3px;
+    }
+
+    .rt-red    { background: var(--danger-bg);  color: var(--danger); }
+    .rt-orange { background: var(--warning-bg); color: var(--warning); }
+  </style>
 </head>
 <body>
-  <div id="login-screen" class="screen">
-    <div class="auth-card">
-      <h1>ForexPro KYC</h1>
-      <p class="muted">Compliance Management Platform</p>
 
-      <form id="login-form" class="form">
-        <label>Email Address</label>
-        <input type="email" value="admin@forexpro.com" />
+<!-- ════════════════════════════════════════════
+     LOGIN PAGE
+════════════════════════════════════════════ -->
+<div id="login-page">
+  <div class="login-card">
+    <div class="login-brand">
+      <div class="login-brand-icon">
+        <svg width="20" height="20" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+          <path d="M2 17l10 5 10-5"/>
+          <path d="M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <div class="login-brand-name">Opofinance</div>
+    </div>
+    <p class="login-subtitle">KYC Compliance Management Platform</p>
 
-        <label>Password</label>
-        <input type="password" value="admin123" />
-
-        <button type="submit" class="primary-btn">Sign In</button>
-      </form>
-
-      <p class="switch-text">
-        Don't have an account?
-        <a href="#" id="go-signup">Create account</a>
-      </p>
+    <div class="form-group">
+      <label>Email Address</label>
+      <input type="email" id="login-email" value="ali.javid@opofinance.com" autocomplete="email" />
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="login-password" value="••••••••" autocomplete="current-password" />
+    </div>
+    <div class="form-row">
+      <label class="remember-label">
+        <input type="checkbox" checked /> Remember me
+      </label>
+      <a href="#" class="forgot-link">Forgot password?</a>
+    </div>
+    <button class="btn-primary" id="login-btn">Sign In to Dashboard</button>
+    <div class="login-hint">
+      Demo: <span>ali.javid@opofinance.com</span> &nbsp;/&nbsp; any password
     </div>
   </div>
+</div>
 
-  <div id="signup-screen" class="screen hidden">
-    <div class="auth-card">
-      <h1>Create Account</h1>
-      <p class="muted">Demo signup page</p>
+<!-- ════════════════════════════════════════════
+     DASHBOARD PAGE
+════════════════════════════════════════════ -->
+<div id="dashboard-page" class="hidden">
 
-      <form id="signup-form" class="form">
-        <label>Full Name</label>
-        <input type="text" placeholder="Your name" />
-
-        <label>Email</label>
-        <input type="email" placeholder="name@example.com" />
-
-        <label>Password</label>
-        <input type="password" placeholder="Create password" />
-
-        <button type="submit" class="primary-btn">Register</button>
-      </form>
-
-      <p class="switch-text">
-        Already have an account?
-        <a href="#" id="go-login">Back to login</a>
-      </p>
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">
+        <svg width="17" height="17" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+          <path d="M2 17l10 5 10-5"/>
+          <path d="M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <div>
+        <div class="logo-text">Opofinance</div>
+        <div class="logo-sub">KYC Platform</div>
+      </div>
     </div>
-  </div>
 
-  <div id="dashboard" class="dashboard hidden">
-    <aside class="sidebar">
-      <div class="sidebar-title">ForexPro KYC</div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Overview</div>
 
-      <button class="tab-btn active" data-tab="overview">Overview</button>
-      <button class="tab-btn" data-tab="registrations">New Registrations</button>
-      <button class="tab-btn" data-tab="documents">Document Review</button>
-      <button class="tab-btn" data-tab="rejected">Rejected Follow-up</button>
-      <button class="tab-btn" data-tab="withdrawals">Withdrawal Review</button>
-      <button class="tab-btn" data-tab="team">Team Performance</button>
-      <button class="tab-btn" data-tab="chat">Live Chat</button>
+      <button class="nav-item active" data-tab="overview">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+          <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+          <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+          <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+        </svg>
+        Dashboard
+      </button>
 
-      <button id="logout-btn" class="logout-btn">Logout</button>
-    </aside>
+      <div class="nav-section-label" style="margin-top:10px">KYC Operations</div>
 
-    <main class="main">
-      <header class="topbar">
+      <button class="nav-item" data-tab="kyc-queue">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
+          <rect x="9" y="3" width="6" height="4" rx="1"/>
+          <path d="M9 12h6M9 16h4"/>
+        </svg>
+        KYC Queue
+        <span class="nav-badge badge-nav-red">24</span>
+      </button>
+
+      <button class="nav-item" data-tab="documents">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+          <polyline points="14,2 14,8 20,8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+        Document Review
+      </button>
+
+      <button class="nav-item" data-tab="withdrawals">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <rect x="2" y="5" width="20" height="14" rx="2"/>
+          <line x1="2" y1="10" x2="22" y2="10"/>
+        </svg>
+        Withdrawals
+        <span class="nav-badge badge-nav-red">8</span>
+      </button>
+
+      <button class="nav-item" data-tab="rejected">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="15" y1="9" x2="9" y2="15"/>
+          <line x1="9" y1="9" x2="15" y2="15"/>
+        </svg>
+        Rejected Follow-up
+      </button>
+
+      <div class="nav-section-label" style="margin-top:10px">Management</div>
+
+      <button class="nav-item" data-tab="team">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+          <path d="M16 3.13a4 4 0 010 7.75"/>
+        </svg>
+        Team Performance
+      </button>
+
+      <button class="nav-item" data-tab="risk">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        Risk &amp; Compliance
+        <span class="nav-badge badge-nav-orange">3</span>
+      </button>
+
+      <button class="nav-item" data-tab="reports">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <line x1="18" y1="20" x2="18" y2="10"/>
+          <line x1="12" y1="20" x2="12" y2="4"/>
+          <line x1="6"  y1="20" x2="6"  y2="14"/>
+        </svg>
+        Reports
+      </button>
+
+      <button class="nav-item" data-tab="settings">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+        </svg>
+        Settings
+      </button>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="user-tile">
+        <div class="avatar avatar-32">AJ</div>
         <div>
-          <h2>KYC Team Dashboard</h2>
-          <p class="muted">Ali Javid — KYC Team Manager</p>
+          <div class="user-tile-name">Ali Javid</div>
+          <div class="user-tile-role">KYC Team Manager</div>
         </div>
-      </header>
+      </div>
+      <button class="logout-btn" id="logout-btn">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+          <polyline points="16,17 21,12 16,7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        Sign Out
+      </button>
+    </div>
+  </aside>
 
-      <section id="panel-overview" class="tab-panel active">
-        <div class="card">
-          <h3>Overview</h3>
-          <p class="muted">KYC management dashboard for internal team workflow.</p>
+  <!-- ── MAIN CONTENT ── -->
+  <div class="main-content">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1 id="greeting-text">Good evening, Ali</h1>
+        <p id="greeting-date">Wednesday, April 8, 2026</p>
+      </div>
+      <div class="topbar-right">
+        <div class="icon-btn" title="Search">
+          <svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
         </div>
-      </section>
-
-      <section id="panel-registrations" class="tab-panel">
-        <div class="card">
-          <h3>New Registrations</h3>
-          <p class="muted">New client registrations are reviewed here.</p>
+        <div class="icon-btn" title="Notifications">
+          <svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 01-3.46 0"/>
+          </svg>
+          <span class="notif-dot"></span>
         </div>
-      </section>
+        <div class="avatar avatar-38" title="Ali Javid — KYC Team Manager">AJ</div>
+      </div>
+    </header>
 
-      <section id="panel-documents" class="tab-panel">
-        <div class="card">
-          <h3>Document Review</h3>
-          <p class="muted">Uploaded documents are checked and approved or rejected here.</p>
+    <!-- PAGE CONTENT -->
+    <div class="page-content">
+
+      <!-- ── METRIC CARDS ── -->
+      <div class="metrics-grid">
+
+        <div class="metric-card">
+          <div class="metric-top">
+            <div class="metric-label">Pending<br>KYC</div>
+            <div class="metric-icon-wrap mi-blue">
+              <svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12,6 12,12 16,14"/>
+              </svg>
+            </div>
+          </div>
+          <div class="metric-value">24</div>
+          <div class="metric-trend t-red">
+            <svg fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="18,15 12,9 6,15"/></svg>
+            +6 <span class="trend-vs">vs yesterday</span>
+          </div>
         </div>
-      </section>
 
-      <section id="panel-rejected" class="tab-panel">
-        <div class="card">
-          <h3>Rejected Follow-up</h3>
-          <p class="muted">Rejected submissions are followed up by the team.</p>
+        <div class="metric-card">
+          <div class="metric-top">
+            <div class="metric-label">Approved<br>Today</div>
+            <div class="metric-icon-wrap mi-green">
+              <svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+              </svg>
+            </div>
+          </div>
+          <div class="metric-value">31</div>
+          <div class="metric-trend t-green">
+            <svg fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="18,15 12,9 6,15"/></svg>
+            +4 <span class="trend-vs">vs yesterday</span>
+          </div>
         </div>
-      </section>
 
-      <section id="panel-withdrawals" class="tab-panel">
-        <div class="card">
-          <h3>Withdrawal Review</h3>
-          <p class="muted">Withdrawal requests are reviewed here before approval.</p>
+        <div class="metric-card">
+          <div class="metric-top">
+            <div class="metric-label">Withdrawals<br>to Review</div>
+            <div class="metric-icon-wrap mi-orange">
+              <svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <rect x="2" y="5" width="20" height="14" rx="2"/>
+                <line x1="2" y1="10" x2="22" y2="10"/>
+              </svg>
+            </div>
+          </div>
+          <div class="metric-value">8</div>
+          <div class="metric-trend t-green">
+            <svg fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg>
+            −4 <span class="trend-vs">vs yesterday</span>
+          </div>
         </div>
-      </section>
 
-      <section id="panel-team" class="tab-panel">
+        <div class="metric-card">
+          <div class="metric-top">
+            <div class="metric-label">Rejected<br>Today</div>
+            <div class="metric-icon-wrap mi-red">
+              <svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="15" y1="9" x2="9" y2="15"/>
+                <line x1="9"  y1="9" x2="15" y2="15"/>
+              </svg>
+            </div>
+          </div>
+          <div class="metric-value">3</div>
+          <div class="metric-trend t-muted">
+            <svg fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            No change <span class="trend-vs">vs yesterday</span>
+          </div>
+        </div>
+
+      </div><!-- /metrics-grid -->
+
+      <!-- ── KYC QUEUE + TEAM WORKLOAD ── -->
+      <div class="grid-2-col">
+
+        <!-- KYC QUEUE TABLE -->
         <div class="card">
-          <h3>Team Performance</h3>
+          <div class="card-head">
+            <div>
+              <div class="card-title">KYC Queue</div>
+              <div class="card-subtitle">Active verification requests</div>
+            </div>
+            <span class="chip chip-blue">24 pending</span>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Client</th>
+                  <th>Submitted</th>
+                  <th>Document</th>
+                  <th>Assigned To</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="client-cell">
+                      <div class="client-ava" style="background:linear-gradient(135deg,#4f7cff,#8b5cf6)">EM</div>
+                      <div>
+                        <div class="client-name">Elena Marchetti</div>
+                        <div class="client-id">#KYC-4821</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="time-cell">2h ago</td>
+                  <td><span class="doc-chip">Passport</span></td>
+                  <td>
+                    <div class="assigned-wrap">
+                      <div class="assigned-dot" style="background:#10b981">M</div>
+                      Mahoo
+                    </div>
+                  </td>
+                  <td><span class="badge badge-orange">Pending</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="client-cell">
+                      <div class="client-ava" style="background:linear-gradient(135deg,#10b981,#3b82f6)">AR</div>
+                      <div>
+                        <div class="client-name">Arash Rezaei</div>
+                        <div class="client-id">#KYC-4820</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="time-cell">3h ago</td>
+                  <td><span class="doc-chip">National ID</span></td>
+                  <td>
+                    <div class="assigned-wrap">
+                      <div class="assigned-dot" style="background:#8b5cf6">S</div>
+                      Sevil
+                    </div>
+                  </td>
+                  <td><span class="badge badge-blue">In Review</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="client-cell">
+                      <div class="client-ava" style="background:linear-gradient(135deg,#f59e0b,#10b981)">NK</div>
+                      <div>
+                        <div class="client-name">Nadia Kovacs</div>
+                        <div class="client-id">#KYC-4819</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="time-cell">5h ago</td>
+                  <td><span class="doc-chip">Driver's License</span></td>
+                  <td>
+                    <div class="assigned-wrap">
+                      <div class="assigned-dot" style="background:#4f7cff">P</div>
+                      Pouya
+                    </div>
+                  </td>
+                  <td><span class="badge badge-green">Approved</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="client-cell">
+                      <div class="client-ava" style="background:linear-gradient(135deg,#ef4444,#f59e0b)">JB</div>
+                      <div>
+                        <div class="client-name">James Becker</div>
+                        <div class="client-id">#KYC-4818</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="time-cell">6h ago</td>
+                  <td><span class="doc-chip">Passport</span></td>
+                  <td>
+                    <div class="assigned-wrap">
+                      <div class="assigned-dot" style="background:linear-gradient(135deg,#4f7cff,#8b5cf6)">A</div>
+                      Ali Javid
+                    </div>
+                  </td>
+                  <td><span class="badge badge-red">Flagged</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TEAM WORKLOAD -->
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <div class="card-title">Team Workload</div>
+              <div class="card-subtitle">Open cases per analyst</div>
+            </div>
+          </div>
           <div class="team-list">
-            <div class="team-member">
-              <strong>Ali Javid</strong>
-              <span class="muted">KYC Team Manager</span>
+
+            <div class="team-row">
+              <div class="team-row-top">
+                <div class="member-wrap">
+                  <div class="avatar avatar-32" style="background:linear-gradient(135deg,#4f7cff,#8b5cf6)">AJ</div>
+                  <div>
+                    <div class="member-name">Ali Javid</div>
+                    <div class="member-role">Team Manager</div>
+                  </div>
+                </div>
+                <div>
+                  <div class="member-count">28</div>
+                  <div class="member-count-label">cases</div>
+                </div>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill" style="width:88%;background:linear-gradient(90deg,#4f7cff,#8b5cf6)"></div>
+              </div>
             </div>
-            <div class="team-member">
-              <strong>Mahoo</strong>
-              <span class="muted">KYC Analyst</span>
+
+            <div class="team-row">
+              <div class="team-row-top">
+                <div class="member-wrap">
+                  <div class="avatar avatar-32" style="background:#10b981">M</div>
+                  <div>
+                    <div class="member-name">Mahoo</div>
+                    <div class="member-role">KYC Analyst</div>
+                  </div>
+                </div>
+                <div>
+                  <div class="member-count">31</div>
+                  <div class="member-count-label">cases</div>
+                </div>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill" style="width:97%;background:#10b981"></div>
+              </div>
             </div>
-            <div class="team-member">
-              <strong>Sevil</strong>
-              <span class="muted">KYC Analyst</span>
+
+            <div class="team-row">
+              <div class="team-row-top">
+                <div class="member-wrap">
+                  <div class="avatar avatar-32" style="background:#8b5cf6">S</div>
+                  <div>
+                    <div class="member-name">Sevil</div>
+                    <div class="member-role">KYC Analyst</div>
+                  </div>
+                </div>
+                <div>
+                  <div class="member-count">29</div>
+                  <div class="member-count-label">cases</div>
+                </div>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill" style="width:91%;background:#8b5cf6"></div>
+              </div>
             </div>
-            <div class="team-member">
-              <strong>Pouya</strong>
-              <span class="muted">KYC Analyst</span>
+
+            <div class="team-row">
+              <div class="team-row-top">
+                <div class="member-wrap">
+                  <div class="avatar avatar-32" style="background:#f59e0b">P</div>
+                  <div>
+                    <div class="member-name">Pouya</div>
+                    <div class="member-role">KYC Analyst</div>
+                  </div>
+                </div>
+                <div>
+                  <div class="member-count">32</div>
+                  <div class="member-count-label">cases</div>
+                </div>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill" style="width:100%;background:#f59e0b"></div>
+              </div>
             </div>
+
           </div>
         </div>
-      </section>
 
-      <section id="panel-chat" class="tab-panel">
+      </div><!-- /grid-2-col (queue + team) -->
+
+      <!-- ── WITHDRAWALS + RISK FLAGS ── -->
+      <div class="grid-2-col">
+
+        <!-- WITHDRAWAL REVIEW TABLE -->
         <div class="card">
-          <h3>Live Chat</h3>
-          <p class="muted">Internal KYC team communication space.</p>
-          <div id="chat-box" class="chat-box"></div>
-          <div class="chat-row">
-            <input id="chat-input" type="text" placeholder="Message team..." />
-            <button id="send-btn" class="primary-btn small-btn">Send</button>
+          <div class="card-head">
+            <div>
+              <div class="card-title">Withdrawal Review</div>
+              <div class="card-subtitle">Awaiting KYC team approval</div>
+            </div>
+            <span class="chip chip-orange">8 pending</span>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Client</th>
+                  <th>Amount</th>
+                  <th>Method</th>
+                  <th>KYC Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="client-cell">
+                      <div class="client-ava" style="background:linear-gradient(135deg,#3b82f6,#8b5cf6)">DM</div>
+                      <div>
+                        <div class="client-name">David Müller</div>
+                        <div class="client-id">#WD-2241</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="amount-val">$12,500</span></td>
+                  <td><span class="method-chip">Bank Wire</span></td>
+                  <td><span class="badge badge-green">Verified</span></td>
+                  <td>
+                    <div class="btn-group">
+                      <button class="btn-act btn-approve">Approve</button>
+                      <button class="btn-act btn-reject">Reject</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="client-cell">
+                      <div class="client-ava" style="background:linear-gradient(135deg,#f59e0b,#10b981)">SP</div>
+                      <div>
+                        <div class="client-name">Sara Petrov</div>
+                        <div class="client-id">#WD-2240</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="amount-val">$4,800</span></td>
+                  <td><span class="method-chip">Crypto</span></td>
+                  <td><span class="badge badge-orange">Pending</span></td>
+                  <td>
+                    <div class="btn-group">
+                      <button class="btn-act btn-review">Review KYC</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="client-cell">
+                      <div class="client-ava" style="background:linear-gradient(135deg,#ef4444,#f59e0b)">HK</div>
+                      <div>
+                        <div class="client-name">Hiroshi Kato</div>
+                        <div class="client-id">#WD-2239</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="amount-val" style="color:var(--danger)">$31,000</span></td>
+                  <td><span class="method-chip">Bank Wire</span></td>
+                  <td><span class="badge badge-red">Flagged</span></td>
+                  <td>
+                    <div class="btn-group">
+                      <button class="btn-act btn-hold">Flag &amp; Hold</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
-      </section>
-    </main>
-  </div>
 
-  <script src="script.js"></script>
+        <!-- RISK FLAGS -->
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <div class="card-title">Risk Flags</div>
+              <div class="card-subtitle">Active compliance alerts</div>
+            </div>
+            <span class="chip chip-red">3 active</span>
+          </div>
+          <div class="risk-list">
+
+            <div class="risk-item">
+              <div class="risk-dot rd-red"></div>
+              <div>
+                <div class="risk-title">High-Value Withdrawal</div>
+                <div class="risk-desc">Hiroshi Kato — $31,000 wire transfer exceeds daily AML threshold. Manual review required before processing.</div>
+                <div class="risk-meta"><span class="risk-tag rt-red">CRITICAL</span>Flagged 45 min ago · Assigned to Ali</div>
+              </div>
+            </div>
+
+            <div class="risk-item">
+              <div class="risk-dot rd-red"></div>
+              <div>
+                <div class="risk-title">Document Mismatch</div>
+                <div class="risk-desc">James Becker (#KYC-4818) — Passport name does not match registration data. Manual identity verification required.</div>
+                <div class="risk-meta"><span class="risk-tag rt-red">HIGH</span>Flagged 6h ago · Assigned to Ali</div>
+              </div>
+            </div>
+
+            <div class="risk-item">
+              <div class="risk-dot rd-orange"></div>
+              <div>
+                <div class="risk-title">PEP Screening Alert</div>
+                <div class="risk-desc">New registration matches a politically exposed person entry. Enhanced due diligence protocol must be initiated.</div>
+                <div class="risk-meta"><span class="risk-tag rt-orange">MEDIUM</span>Flagged 2h ago · Unassigned</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div><!-- /grid-2-col (withdrawals + risk) -->
+
+    </div><!-- /page-content -->
+  </div><!-- /main-content -->
+</div><!-- /dashboard-page -->
+
+<script>
+  // ── Greeting & date
+  (function () {
+    var now = new Date();
+    var opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById('greeting-date').textContent = now.toLocaleDateString('en-US', opts);
+  })();
+
+  // ── Login
+  function doLogin() {
+    document.getElementById('login-page').classList.add('hidden');
+    document.getElementById('dashboard-page').classList.remove('hidden');
+  }
+
+  document.getElementById('login-btn').addEventListener('click', doLogin);
+
+  document.getElementById('login-password').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') doLogin();
+  });
+
+  document.getElementById('login-email').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') doLogin();
+  });
+
+  // ── Logout
+  document.getElementById('logout-btn').addEventListener('click', function () {
+    document.getElementById('dashboard-page').classList.add('hidden');
+    document.getElementById('login-page').classList.remove('hidden');
+  });
+
+  // ── Nav active state
+  document.querySelectorAll('.nav-item').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.nav-item').forEach(function (b) {
+        b.classList.remove('active');
+      });
+      btn.classList.add('active');
+    });
+  });
+
+  // ── Action buttons (demo feedback)
+  document.querySelectorAll('.btn-approve').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var row = btn.closest('tr');
+      var badge = row.querySelector('.badge');
+      if (badge) { badge.className = 'badge badge-green'; badge.textContent = ''; badge.innerHTML = ''; badge.textContent = 'Approved'; badge.className = 'badge badge-green'; }
+      btn.closest('.btn-group').innerHTML = '<span style="font-size:12px;color:var(--success);font-weight:600">✓ Approved</span>';
+    });
+  });
+
+  document.querySelectorAll('.btn-reject').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      btn.closest('.btn-group').innerHTML = '<span style="font-size:12px;color:var(--danger);font-weight:600">✗ Rejected</span>';
+    });
+  });
+</script>
 </body>
 </html>
